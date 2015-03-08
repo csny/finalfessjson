@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="KAD-fO-0Ne">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <scenes>
+        <!--FESS SEARCH-->
+        <scene sceneID="JN5-Om-I92">
+            <objects>
+                <tableViewController id="HXB-Qr-UG8" customClass="RootViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ESA-lK-PNU">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="7Wy-s6-mY5" detailTextLabel="jTV-52-5ii" style="IBUITableViewCellStyleSubtitle" id="UX5-65-kQU">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UX5-65-kQU" id="rGI-jh-6UR">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7Wy-s6-mY5">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jTV-52-5ii">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="HXB-Qr-UG8" id="zWk-Q1-5Un"/>
+                            <outlet property="delegate" destination="HXB-Qr-UG8" id="oMt-5G-tce"/>
+                            <outletCollection property="gestureRecognizers" destination="ncp-Qx-Wc1" appends="YES" id="ovp-eC-l1q"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="FESS SEARCH" id="uyl-Le-WSU">
+                        <barButtonItem key="leftBarButtonItem" id="rt4-lB-rgj">
+                            <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search" minimumFontSize="17" id="qFT-qL-Jcg">
+                                <rect key="frame" x="0.0" y="-30" width="133" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="pushReturn:" destination="HXB-Qr-UG8" eventType="editingDidEndOnExit" id="YEp-xX-S4z"/>
+                                </connections>
+                            </textField>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="4PN-AI-JCc">
+                            <connections>
+                                <segue destination="lbf-C3-bLE" kind="show" id="Vac-TR-FxX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="searchFld" destination="qFT-qL-Jcg" id="Pmy-A7-K1c"/>
+                        <outlet property="tableView" destination="ESA-lK-PNU" id="nKR-4o-hdG"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6mI-ib-hs8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="ncp-Qx-Wc1">
+                    <connections>
+                        <action selector="singleTapped:" destination="HXB-Qr-UG8" id="xNg-Vu-Vrp"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="229" y="312"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Zaa-f7-RTv">
+            <objects>
+                <viewController id="lbf-C3-bLE" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mkY-Qe-tq8"/>
+                        <viewControllerLayoutGuide type="bottom" id="OlR-9R-5uZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Hvy-VK-cOP">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BMd-MD-Qfl">
+                                <rect key="frame" x="63" y="268" width="200" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="pushReturn:" destination="lbf-C3-bLE" eventType="editingDidEndOnExit" id="ebb-RI-CYu"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="FESS server Address &amp; Port" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNw-wa-yQQ">
+                                <rect key="frame" x="54" y="239" width="237" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bbl-aa-zSD">
+                                <rect key="frame" x="140" y="356" width="46" height="30"/>
+                                <state key="normal" title="SAVE">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="saveBtn:" destination="lbf-C3-bLE" eventType="touchUpInside" id="a6T-jG-6it"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="4I1-WT-yZ6" appends="YES" id="3iN-yL-U2C"/>
+                        </connections>
+                    </view>
+                    <connections>
+                        <outlet property="addressFld" destination="BMd-MD-Qfl" id="7hc-u5-Fs9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g6r-Ya-UXe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="4I1-WT-yZ6">
+                    <connections>
+                        <action selector="singleTapped:" destination="lbf-C3-bLE" id="OnB-mF-6iq"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="965" y="312"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ZZT-Y9-FKy">
+            <objects>
+                <navigationController id="KAD-fO-0Ne" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Hfr-nO-CHP">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="HXB-Qr-UG8" kind="relationship" relationship="rootViewController" id="7Mi-dh-iAR"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CEw-yQ-mYW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-591" y="312"/>
+        </scene>
+    </scenes>
+</document>
