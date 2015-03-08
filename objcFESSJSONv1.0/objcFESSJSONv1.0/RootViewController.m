@@ -118,6 +118,26 @@
     
     // TableView をリロード、ストーリーボードと名前を合わせる
     [self.tableView reloadData];
+    NSLog(@"JsonParse called");
+}
+// 検索文字置換
+-(NSString *)checkWords
+{
+    // ASCIIコード以外が含まれるかチェック
+    NSString *words, *words1;
+    NSCharacterSet *stringCharacterSet = [NSCharacterSet characterSetWithCharactersInString:_searchFld.text];
+    NSCharacterSet *asciiWithoutSpaceCharacterSet = [NSCharacterSet characterSetWithRange:NSMakeRange(0x21, 0x5e)];
+    if ([asciiWithoutSpaceCharacterSet isSupersetOfSet:stringCharacterSet]) {
+        // 英数字のみ
+        words = _searchFld.text;
+    } else {
+        // 英数字以外の文字がある(空白の可能性もある)
+        // 前後の空白を削除
+        words1 = [_searchFld.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        // 間の空白を+に置換
+        words = [words1 stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+    }
+    return [NSString stringWithFormat:@"%@", words];
 }
 
 // 通信処理
@@ -129,8 +149,9 @@
     NSURLSession *session = [NSURLSession sharedSession];
     
     // URL準備
+    [self checkWords];
     // ttp://サーバアドレス/fess/json?query=検索語となるように生成
-    NSString *temp_url = [NSString stringWithFormat:@"http://%@/fess/json?query=%@",appDelegate.servername,_searchFld.text];
+    NSString *temp_url = [NSString stringWithFormat:@"http://%@/fess/json?query=%@",appDelegate.servername, [self checkWords]];
     NSURL *url = [NSURL URLWithString:temp_url];
     
     // Requestの条件設定、キャッシュを使い、タイムアウトは7秒
