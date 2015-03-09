@@ -12,6 +12,10 @@
 @interface RootViewController : UITableViewController
 {
     AppDelegate *appDelegate;
+    
+// カプセル化
+@private
+    NSArray *items;
 }
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;

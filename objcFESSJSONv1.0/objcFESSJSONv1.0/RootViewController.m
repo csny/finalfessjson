@@ -121,10 +121,10 @@
     NSLog(@"JsonParse called");
 }
 // 検索文字置換
--(NSString *)checkWords
+-(NSString *)urlescapeChar
 {
     // ASCIIコード以外が含まれるかチェック
-    NSString *words, *words1;
+    NSString *words, *word1;
     NSCharacterSet *stringCharacterSet = [NSCharacterSet characterSetWithCharactersInString:_searchFld.text];
     NSCharacterSet *asciiWithoutSpaceCharacterSet = [NSCharacterSet characterSetWithRange:NSMakeRange(0x21, 0x5e)];
     if ([asciiWithoutSpaceCharacterSet isSupersetOfSet:stringCharacterSet]) {
@@ -132,10 +132,15 @@
         words = _searchFld.text;
     } else {
         // 英数字以外の文字がある(空白の可能性もある)
-        // 前後の空白を削除
-        words1 = [_searchFld.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        // 間の空白を+に置換
-        words = [words1 stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+        // URL用のエンコード
+        word1 = (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(
+                                                                                                      NULL,
+                                                                                                      (__bridge CFStringRef)_searchFld.text, //元の文字列
+                                                                                                      NULL,
+                                                                                                      CFSTR("!*'();:@&=+$,/?%#[]"),
+                                                                                                      CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+        // 空白を+に置換
+        words = [word1 stringByReplacingOccurrencesOfString:@"%20" withString:@"+"];
     }
     return [NSString stringWithFormat:@"%@", words];
 }
@@ -149,9 +154,8 @@
     NSURLSession *session = [NSURLSession sharedSession];
     
     // URL準備
-    [self checkWords];
     // ttp://サーバアドレス/fess/json?query=検索語となるように生成
-    NSString *temp_url = [NSString stringWithFormat:@"http://%@/fess/json?query=%@",appDelegate.servername, [self checkWords]];
+    NSString *temp_url = [NSString stringWithFormat:@"http://%@/fess/json?query=%@",appDelegate.servername, [self urlescapeChar]];
     NSURL *url = [NSURL URLWithString:temp_url];
     
     // Requestの条件設定、キャッシュを使い、タイムアウトは7秒
