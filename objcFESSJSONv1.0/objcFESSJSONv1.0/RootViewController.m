@@ -42,7 +42,6 @@
 {
     //NSLog(@"cell数:%ld",[items count]);
     return [items count];
-    //NSLog(@"numberOfSectionsInTableView called");
 }
 // セルへの値入力(tableview必須メソッド)
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -63,8 +62,8 @@
     cell.textLabel.text = [item objectForKey:@"title"];
     cell.detailTextLabel.text=[item objectForKey:@"url"];
     
+    //NSLog(@"%ld cell目", indexPath.row);
     return cell;
-    //NSLog(@"cellForRowAtIndexPath called");
 }
 
 // 下に引っ張ると更新する機能の準備
@@ -79,7 +78,7 @@
 
 // Alert表示
 // [self showAlert:@"text"];で呼ぶ
-- (void)showAlert:(NSString*)text
+- (void)showAlert:(NSString*)alttitle : (NSString*)alttext
 {
     // UIAlertControllerクラスの有無でiOS判定
     Class class = NSClassFromString(@"UIAlertController");
@@ -87,8 +86,8 @@
         // iOS 8の処理
         // UIAlertControllerを使ってアラートを表示
         UIAlertController *alert = nil;
-        alert = [UIAlertController alertControllerWithTitle:@"Request Failed"
-                                                    message:text
+        alert = [UIAlertController alertControllerWithTitle:alttitle
+                                                    message:alttext
                                              preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:@"OK"
                                                   style:UIAlertActionStyleDefault
@@ -97,8 +96,8 @@
     }else{
         // iOS 7の処理
         // UIAlertViewを使ってアラートを表示
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Request Failed"
-                                                        message:text
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alttitle
+                                                        message:alttext
                                                        delegate:nil
                                               cancelButtonTitle:nil
                                               otherButtonTitles:@"OK", nil];
@@ -119,12 +118,16 @@
     // TableView をリロード、ストーリーボードと名前を合わせる
     [self.tableView reloadData];
     NSLog(@"JsonParse called");
+    // 1件もヒットしなかった場合
+    if(self.items == nil) {
+        [self showAlert:@"0 hit":@"There is response, but no hit"];
+    }
 }
 // 検索文字置換
--(NSString *)urlescapeChar
+- (NSString *) urlescapeChar
 {
     // ASCIIコード以外が含まれるかチェック
-    NSString *words, *word1;
+    NSString *words, *words1;
     NSCharacterSet *stringCharacterSet = [NSCharacterSet characterSetWithCharactersInString:_searchFld.text];
     NSCharacterSet *asciiWithoutSpaceCharacterSet = [NSCharacterSet characterSetWithRange:NSMakeRange(0x21, 0x5e)];
     if ([asciiWithoutSpaceCharacterSet isSupersetOfSet:stringCharacterSet]) {
@@ -133,14 +136,14 @@
     } else {
         // 英数字以外の文字がある(空白の可能性もある)
         // URL用のエンコード
-        word1 = (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(
+        words1 = (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(
                                                                                                       NULL,
                                                                                                       (__bridge CFStringRef)_searchFld.text, //元の文字列
                                                                                                       NULL,
                                                                                                       CFSTR("!*'();:@&=+$,/?%#[]"),
                                                                                                       CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
         // 空白を+に置換
-        words = [word1 stringByReplacingOccurrencesOfString:@"%20" withString:@"+"];
+        words = [words1 stringByReplacingOccurrencesOfString:@"%20" withString:@"+"];
     }
     return [NSString stringWithFormat:@"%@", words];
 }
@@ -170,14 +173,13 @@
                                         completionHandler:^(NSData *json, NSURLResponse *response, NSError *error) {
                                             if (json==nil || (error)) {
                                                 // 通信が異常終了したときの処理
-                                                //NSLog(@"request failed.");
                                                 //NSLog(@"ERROR:%@",error);
                                                 //NSLog(@"HTTPstatus:%@",response);
                                                 // アラートを出して処理中断
-                                                [self showAlert:@"Check network environment"];
+                                                [self showAlert:@"Request Failed":@"Check network environment"];
                                                 return;
                                             }
-                                            // 通信が正に常終了したときの処理
+                                            // 通信が正常終了したときの処理
                                             [self jsonParse:json];
                                         }];
     
