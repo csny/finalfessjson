@@ -12,12 +12,9 @@
 @interface RootViewController : UITableViewController
 {
     AppDelegate *appDelegate;
-    
-// カプセル化
-@private
-    NSArray *items;
 }
-
+// property*itemsは手入力、ストーリーボードとのひもづけなし
+@property NSArray *items;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *searchFld;
 - (IBAction)pushReturn:(id)sender;
