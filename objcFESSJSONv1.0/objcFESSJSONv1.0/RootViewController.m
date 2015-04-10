@@ -14,6 +14,9 @@
 
 @implementation RootViewController
 
+// xcode6.3から出たtabelViewの警告回避
+@synthesize tableView = _tableView;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // 空の配列を用意
@@ -31,7 +34,7 @@
 // TableViewControllerのviewDidLoadは起動時のみ、viewDidAppearはBackボタンでも毎回読み込まれる
 - (void)viewDidAppear:(BOOL)animated
 {
-    appDelegate = [[UIApplication sharedApplication] delegate];
+    _appDelegate = [[UIApplication sharedApplication] delegate];
 }
 
 // セル数を返す(tableview必須メソッド)
@@ -155,7 +158,7 @@
     
     // URL準備
     // ttp://サーバアドレス/fess/json?query=検索語となるように生成
-    NSString *temp_url = [NSString stringWithFormat:@"http://%@/fess/json?query=%@",appDelegate.servername, [self urlescapeChar]];
+    NSString *temp_url = [NSString stringWithFormat:@"http://%@/fess/json?query=%@",_appDelegate.servername, [self urlescapeChar]];
     NSURL *url = [NSURL URLWithString:temp_url];
     
     // Requestの条件設定、キャッシュを使い、タイムアウトは7秒

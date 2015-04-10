@@ -9,11 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
-{
-    NSString *servername;
-}
 
-@property (nonatomic, retain) NSString *servername;
+@property NSString *servername;
 @property (strong, nonatomic) UIWindow *window;
 
 

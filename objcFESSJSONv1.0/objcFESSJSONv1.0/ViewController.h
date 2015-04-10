@@ -10,10 +10,9 @@
 #import "AppDelegate.h"
 
 @interface ViewController : UIViewController
-{
-    AppDelegate *appDelegate;
-}
 
+// property *appDelegateは手入力、ストーリーボードとのひもづけなし
+@property AppDelegate *appDelegate;
 @property (weak, nonatomic) IBOutlet UITextField *addressFld;
 - (IBAction)saveBtn:(id)sender;
 - (IBAction)pushReturn:(id)sender;

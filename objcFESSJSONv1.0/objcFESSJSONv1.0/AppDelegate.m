@@ -14,11 +14,10 @@
 
 @implementation AppDelegate
 
-@synthesize servername;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // 初期化
-    servername = @"";
+    _servername = @"";
     return YES;
 }
 

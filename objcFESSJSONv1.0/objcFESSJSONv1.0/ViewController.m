@@ -17,8 +17,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // viewが読み込まれたら、テキストフィールドにservernameを表示
-    appDelegate = [[UIApplication sharedApplication] delegate];
-    _addressFld.text = [NSString stringWithFormat:@"%@", appDelegate.servername];
+    _appDelegate = [[UIApplication sharedApplication] delegate];
+    _addressFld.text = [NSString stringWithFormat:@"%@", _appDelegate.servername];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -29,8 +29,8 @@
 
 // ボタンが押されたらsevernameをテキストフィールドの文字で上書き
 - (IBAction)saveBtn:(id)sender {
-    appDelegate = [[UIApplication sharedApplication] delegate];
-    appDelegate.servername = [NSString stringWithFormat:@"%@", _addressFld.text];
+    _appDelegate = [[UIApplication sharedApplication] delegate];
+    _appDelegate.servername = [NSString stringWithFormat:@"%@", _addressFld.text];
 }
 // キーボード閉じる動作まとめ
 // テキストフィールドのReturn押下でキーボードを閉じる
