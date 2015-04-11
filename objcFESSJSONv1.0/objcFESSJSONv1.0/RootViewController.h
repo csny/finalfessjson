@@ -14,7 +14,6 @@
 // property *items,appDelegateは手入力、ストーリーボードとのひもづけなし
 @property NSArray *items;
 @property AppDelegate *appDelegate;
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *searchFld;
 - (IBAction)pushReturn:(id)sender;
 - (IBAction)singleTapped:(id)sender;

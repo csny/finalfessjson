@@ -14,9 +14,6 @@
 
 @implementation RootViewController
 
-// xcode6.3から出たtabelViewの警告回避
-@synthesize tableView = _tableView;
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // 空の配列を用意
